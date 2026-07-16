@@ -258,7 +258,7 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
 @keyframes spin { to { transform: rotate(360deg); } }
 .photo-ring img {
   display: block; width: 290px; height: 290px; border-radius: 50%;
-  object-fit: cover; object-position: 50% 25%;
+  object-fit: cover; object-position: 50% 15%;
   border: 5px solid var(--bg);
   transition: border-color 0.35s ease;
 }
@@ -324,7 +324,7 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
   border-color: transparent;
 }
 
-.paper-head { margin-bottom: 10px; }
+.paper-head { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 .badge {
   display: inline-block; padding: 4px 12px; border-radius: 999px;
   font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
@@ -332,6 +332,7 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
 .badge-jmp { background: var(--gold-soft); color: var(--gold); }
 .badge-wp  { background: var(--accent-soft); color: var(--accent); }
 .badge-wip { background: var(--accent-soft); color: var(--ink-faint); }
+.badge-status { background: transparent; color: var(--ink-faint); border: 1px solid var(--border); }
 
 .paper-title {
   font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
@@ -399,6 +400,12 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
 .timeline-item:hover::before { transform: scale(1.5); opacity: 1; }
 .tl-when { font-weight: 600; font-size: 0.88rem; color: var(--ink-faint); min-width: 130px; padding-top: 2px; }
 .tl-what { color: var(--ink); font-weight: 500; flex: 1; min-width: 240px; }
+.tl-award {
+  display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 999px;
+  background: var(--gold-soft); color: var(--gold);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+  white-space: nowrap; vertical-align: 2px;
+}
 
 /* ---------- teaching ---------- */
 
