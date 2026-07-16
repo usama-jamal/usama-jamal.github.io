@@ -15,6 +15,8 @@
   --accent-soft: rgba(14, 122, 114, 0.1);
   --gold: #b98a2f;
   --gold-soft: rgba(185, 138, 47, 0.12);
+  /* darkened so white text on a solid gold fill clears WCAG AA (4.9:1) */
+  --gold-strong: #8f6a24;
   --border: #e4e1d8;
   --shadow: 0 1px 3px rgba(28, 36, 51, 0.06), 0 8px 24px rgba(28, 36, 51, 0.07);
   --shadow-lift: 0 4px 12px rgba(28, 36, 51, 0.1), 0 16px 40px rgba(28, 36, 51, 0.12);
@@ -35,6 +37,8 @@
   --accent-soft: rgba(62, 200, 187, 0.12);
   --gold: #d4a948;
   --gold-soft: rgba(212, 169, 72, 0.14);
+  /* on dark, the base gold is already bright enough to carry dark text (8.2:1) */
+  --gold-strong: #d4a948;
   --border: #273350;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-lift: 0 4px 12px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.45);
@@ -241,26 +245,15 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
 .hero-quicklinks a:hover { color: var(--accent); }
 
 .hero-photo { display: flex; justify-content: center; }
-.photo-ring {
-  position: relative; padding: 10px; border-radius: 50%;
-  background: conic-gradient(from 180deg, var(--accent), var(--gold), var(--accent));
-  animation: ring-rotate 10s linear infinite;
+.photo-frame {
+  padding: 4px; border-radius: 18px;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  box-shadow: var(--shadow-lift);
+  transition: box-shadow 0.35s ease;
 }
-@keyframes ring-rotate {
-  from { background: conic-gradient(from 0deg, var(--accent), var(--gold), var(--accent)); }
-  /* conic angle isn't animatable everywhere; the subtle effect below is the fallback */
-}
-.photo-ring::after {
-  content: ""; position: absolute; inset: -14px; border-radius: 50%;
-  border: 1.5px dashed var(--border);
-  animation: spin 40s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.photo-ring img {
-  display: block; width: 290px; height: 290px; border-radius: 50%;
-  object-fit: cover; object-position: 50% 15%;
-  border: 5px solid var(--bg);
-  transition: border-color 0.35s ease;
+/* height is left to the image's own aspect ratio, so the portrait is never cropped */
+.photo-frame img {
+  display: block; width: 300px; height: auto; border-radius: 14px;
 }
 
 /* ---------- sections ---------- */
@@ -332,7 +325,7 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
 .badge-jmp { background: var(--gold-soft); color: var(--gold); }
 .badge-wp  { background: var(--accent-soft); color: var(--accent); }
 .badge-wip { background: var(--accent-soft); color: var(--ink-faint); }
-.badge-status { background: transparent; color: var(--ink-faint); border: 1px solid var(--border); }
+.badge-status { background: var(--gold-soft); color: var(--gold); }
 
 .paper-title {
   font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
@@ -400,12 +393,22 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
 .timeline-item:hover::before { transform: scale(1.5); opacity: 1; }
 .tl-when { font-weight: 600; font-size: 0.88rem; color: var(--ink-faint); min-width: 130px; padding-top: 2px; }
 .tl-what { color: var(--ink); font-weight: 500; flex: 1; min-width: 240px; }
+/* solid fill, one tier above the gold-soft badges, so the award reads as the peak */
 .tl-award {
   display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 999px;
-  background: var(--gold-soft); color: var(--gold);
+  background: var(--gold-strong); color: var(--bg);
   font-size: 0.7rem; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
   white-space: nowrap; vertical-align: 2px;
 }
+
+/* highlighted timeline rows (NBER, award-winning talks) */
+.timeline-item.is-highlight {
+  background: var(--gold-soft);
+  border-radius: 0 10px 10px 0;
+  padding-right: 14px;
+}
+.timeline-item.is-highlight::before { background: var(--gold); opacity: 1; }
+.timeline-item.is-highlight .tl-what { font-weight: 600; }
 
 /* ---------- teaching ---------- */
 
@@ -496,7 +499,7 @@ p a:hover, .paper-authors a:hover, .bg-body a:hover, .teach-inst a:hover {
   .hero { padding: 120px 0 70px; }
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .hero-photo { order: -1; }
-  .photo-ring img { width: 210px; height: 210px; }
+  .photo-frame img { width: 220px; }
   .teaching-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
 
